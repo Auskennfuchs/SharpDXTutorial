@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using Device = SharpDX.Direct3D11.Device;
 using Resource = SharpDX.Direct3D11.Resource;
 using SharpDX.Windows;
+using SharpDXTutorial.Shader;
 
 namespace SharpDXTutorial {
     class Renderer : IDisposable{
@@ -18,6 +18,14 @@ namespace SharpDXTutorial {
             get; private set;
         }
 
+        public RenderPipeline ImmPipeline {
+            get; private set;
+        }
+
+        public ShaderLoader Shader {
+            get; private set;
+        }
+
         private SwapChain dxSwapChain;
 
         private RenderForm form;
@@ -25,6 +33,8 @@ namespace SharpDXTutorial {
         public RenderTargetView MainTarget {
             get; private set;
         }
+
+        private InputLayoutManager inputLayoutManager;
 
         public static Renderer Instance {
             get; private set;
@@ -38,6 +48,8 @@ namespace SharpDXTutorial {
             form = window;
             Device = new Device(SharpDX.Direct3D.DriverType.Hardware, DeviceCreationFlags.Debug);
             ImmContext = Device.ImmediateContext;
+
+            ImmPipeline = new RenderPipeline(ImmContext);
 
             var width = form.ClientSize.Width;
             var height = form.ClientSize.Height;
@@ -57,9 +69,16 @@ namespace SharpDXTutorial {
 
                 factory.MakeWindowAssociation(form.Handle, WindowAssociationFlags.IgnoreAltEnter);
             }
+
+            Shader = new ShaderLoader(this);
+
+            inputLayoutManager = new InputLayoutManager(Device);
         }
 
         public void Dispose() {
+            if(inputLayoutManager!=null) {
+                inputLayoutManager.Dispose();
+            }
             if (MainTarget != null) {
                 MainTarget.Dispose();
             }

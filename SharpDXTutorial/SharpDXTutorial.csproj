@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,14 +63,30 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseShader.cs" />
+    <Compile Include="BufferDescription.cs" />
+    <Compile Include="ConstantBuffer.cs" />
+    <Compile Include="ConstantBufferParameter.cs" />
+    <Compile Include="InputAssemblerStage.cs" />
+    <Compile Include="InputAssemblerState.cs" />
+    <Compile Include="InputLayoutManager.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="MatrixParameter.cs" />
+    <Compile Include="ParameterManager.cs" />
+    <Compile Include="PixelShader.cs" />
     <Compile Include="Renderer.cs" />
     <Compile Include="RenderForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RenderPipeline.cs" />
+    <Compile Include="ShaderLoader.cs" />
+    <Compile Include="StateArrayMonitor.cs" />
+    <Compile Include="StateMonitor.cs" />
     <Compile Include="TutorialForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Buffer.cs" />
+    <Compile Include="VertexShader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
